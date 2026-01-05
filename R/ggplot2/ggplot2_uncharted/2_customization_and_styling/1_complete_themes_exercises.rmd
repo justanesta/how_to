@@ -1,0 +1,57 @@
+# Make it Legible
+
+## To Do
+Increase all text size at once using the `base_size` argument
+
+```{r}
+library(ggplot2)
+penguins <- read.csv("https://www.ggplot2-uncharted.com/data/palmerpenguins.csv")
+
+
+ggplot(penguins) +
+  aes(x = bill_length_mm,
+      y = bill_depth_mm,
+      color = species) +
+  geom_point() +
+  theme_gray(
+    base_size = 18
+  ) + 
+  ggtitle("Bill ratios of Pygoscelis penguins")
+```
+
+# The `ipsum` Theme
+
+**Apply `theme_ipsum()` from the hrbrthemes package** instead to replace the default grey look with a lighter, cleaner theme.
+
+This doesn't only look more pleasing but also improves readability — the colored points stand out more clearly against the white background.
+
+```{r}
+library(readr)
+library(hrbrthemes)
+
+simpsons <- read_csv("https://www.ggplot2-uncharted.com/data/simpsons_episodes.csv")
+
+ggplot(simpsons) +
+  aes(x = original_air_date, y = imdb_rating, 
+      color = us_viewers_in_millions) +
+  geom_point(size = 2) +
+  stat_smooth(se = FALSE, color = "black") +
+  scale_color_viridis_c(direction = -1) +
+  theme_ipsum()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
