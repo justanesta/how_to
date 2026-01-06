@@ -1,0 +1,69 @@
+
+# Duplication duplication dupilcation...
+
+Have you ever seen an R script that looks like this:
+
+```{r}
+data <- penguins
+
+print(
+  round(mean(subset(
+    na.omit(data), species == "Adelie" & island == "Torgersen"
+  )$bill_length_mm), 2)
+)
+print(
+  round(mean(subset(
+    na.omit(data), species == "Adelie" & island == "Biscoe"
+  )$bill_length_mm), 2)
+)
+print(
+  round(mean(subset(
+    na.omit(data), species == "Adelie" & island == "Dream"
+  )$bill_length_mm), 2)
+)
+```
+
+The same thing is done 3 times: once for `Torgersen`, once for `Biscoe` and once for `Dream`.
+
+This code is very hard to work with:
+
+* __Hard to read__: that's a lot of code!
+* __Hard to maintain__: if you want to change something, you will have to make the change 3 times.
+* __Error prone__: one day, you will update all items and insert a bug in one. Or you will update an item and forget about the others.
+
+
+It's time to **create a function**!
+
+# What's a function
+A function operates much like a factory.
+
+Imagine it as a place where raw materials (**inputs**) are processed. Inside, various operations (**the function's code**) are performed, and voilà! Out comes a finished product (**the output**).
+
+Everything starts with the _function name_. It includes a _verb_ since a function always _does_ something. Make the name self explanatory! For instance, `multiply_by_two` is much better than `function1`! We understand directly what it does.
+
+Then comes the _assignment operator_ (<-) and the `function` keyword. The _arguments_ are provided here. You can have 0, 1 or several of them!
+
+Last but not least comes the _body_ of the function where the work truly takes place. You can do whatever you want with your arguments, and end by returning your final result with `return()`.
+
+# Example
+The very first code chunk of this lesson computed the mean bill length for the 3 species of the dataset: `Torgersen`, `Biscoe` and `Dream`.
+
+We can create a function called `calc_mean_bill` that expects 1 argument: the `island_name`. And then call the function 3 times, once for each island.
+
+```{r}
+calc_mean_bill <- function(island_name) {
+  filtered_data <- subset(na.omit(data), species == "Adelie" & island == island_name)
+  mean_bill_length <- mean(filtered_data$bill_length_mm)
+  return(round(mean_bill_length, 2))
+}
+
+# Call the function for each island
+calc_mean_bill("Torgersen")
+calc_mean_bill("Biscoe")
+calc_mean_bill("Dream")
+```
+
+# Learn by doing
+As usual, there is no way you learn how functions work if you do not write them yourself.
+
+Here is a list of exercises by growing order of complexity:
